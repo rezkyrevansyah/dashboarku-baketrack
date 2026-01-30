@@ -1,26 +1,144 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Bakery Palette Refined from Images */
+  --bg-app: #F5E6EF; /* Soft pink-purple tint background */
+  --sidebar-start: #FF99C2;
+  --sidebar-end: #FF70A6;
+  
+  --primary-pink: #FF85B3;
+  --text-dark: #6D5D6E;
+  --text-muted: #A89CA8;
+  
+  /* The "White" Clay Material */
+  --clay-bg: rgba(255, 255, 255, 0.75);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@theme {
+  --color-bakery-bg: var(--bg-app);
+  --color-bakery-text: var(--text-dark);
+  --color-bakery-muted: var(--text-muted);
+  
+  --font-nunito: 'Nunito', sans-serif;
+  
+  /* Stronger Clay Shadows */
+  --shadow-clay-card: 
+    14px 14px 28px rgba(214, 184, 199, 0.45), 
+    -14px -14px 28px rgba(255, 255, 255, 0.9);
+    
+  --shadow-clay-floating:
+    8px 8px 16px rgba(166, 125, 142, 0.4),
+    -8px -8px 16px rgba(255, 255, 255, 0.8);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --shadow-clay-inset:
+    inset 6px 6px 12px rgba(166, 125, 142, 0.25),
+    inset -6px -6px 12px rgba(255, 255, 255, 0.9);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--bg-app);
+  color: var(--text-dark);
+  font-family: 'Nunito', sans-serif; /* Applied Nunito globally */
+  min-height: 100vh;
+}
+
+/* Base Clay Card - The "Sofft Pillow" look */
+.clay-card {
+  background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.4));
+  backdrop-filter: blur(20px);
+  border-radius: 32px; /* Super rounded */
+  box-shadow: var(--shadow-clay-card);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+/* Sidebar Specifics */
+.clay-sidebar {
+  background: linear-gradient(180deg, #FF99C2 0%, #FF66A3 100%);
+  border-top-right-radius: 40px;
+  border-bottom-right-radius: 40px;
+  box-shadow: 10px 0 30px rgba(255, 112, 166, 0.3);
+}
+
+/* The Sidebar Menu Item Pill */
+.clay-nav-item {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 20px;
+  backdrop-filter: blur(4px);
+  border: 1px solid transparent;
+}
+
+.clay-nav-item.active {
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 
+    6px 6px 15px rgba(189, 87, 129, 0.2), 
+    -4px -4px 10px rgba(255, 255, 255, 0.3),
+    inset 1px 1px 2px rgba(255,255,255,0.2);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  transform: translateX(4px);
+}
+
+.clay-nav-item:hover:not(.active) {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateX(2px);
+}
+
+/* Buttons */
+.clay-btn-primary {
+  background: linear-gradient(135deg, #ff9eb5 0%, #ff7eb3 100%);
+  color: white;
+  border-radius: 20px;
+  box-shadow: var(--shadow-clay-floating);
+  border: 1px solid rgba(255,255,255,0.4);
+  font-weight: 700;
+  transition: transform 0.1s;
+}
+.clay-btn-primary:active {
+  transform: scale(0.96);
+  box-shadow: var(--shadow-clay-inset);
+}
+
+.clay-input {
+  background: white;
+  border: 3px solid rgba(255, 183, 213, 0.2);
+  border-radius: 20px;
+  padding: 14px 20px;
+  font-family: inherit;
+  font-weight: 700;
+  color: var(--text-dark);
+  box-shadow: 0 4px 16px rgba(166, 125, 142, 0.1), var(--shadow-clay-inset);
+  outline: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.clay-input:focus {
+  background: white;
+  border-color: #FFB7D5;
+  box-shadow: 0 0 24px rgba(255, 183, 213, 0.35), 0 8px 24px rgba(166, 125, 142, 0.15);
+  transform: translateY(-2px);
+}
+
+.clay-input::placeholder {
+  color: var(--text-muted);
+  opacity: 0.5;
+  font-weight: 600;
+}
+
+/* Enhanced Select Dropdown */
+.clay-input select option {
+  background: white;
+  color: var(--text-dark);
+  padding: 12px;
+  font-weight: 700;
+}
+
+.clay-label {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 900;
+  color: var(--text-dark);
+  margin-left: 0.25rem;
+  margin-bottom: 0.75rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  opacity: 0.85;
 }
