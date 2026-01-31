@@ -141,6 +141,7 @@ export async function manageProduct(action: 'create' | 'update' | 'delete', prod
     formData.append('price', product.price?.toString() || '');
     formData.append('costPrice', product.costPrice?.toString() || '');
     formData.append('stock', product.stock?.toString() || '');
+    formData.append('sold', product.sold?.toString() || '');
     formData.append('image', product.image || '');
 
     const res = await fetch(`${PROXY_URL}?url=${encodeURIComponent(GOOGLE_SCRIPT_URL)}`, {

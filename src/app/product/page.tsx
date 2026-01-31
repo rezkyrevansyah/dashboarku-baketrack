@@ -70,6 +70,7 @@ export default function ProductPage() {
       price: Number(formData.price),
       costPrice: Number(formData.costPrice),
       stock: Number(formData.stock),
+      sold: editingProduct ? editingProduct.sold : 0,
       image: formData.image
     });
 

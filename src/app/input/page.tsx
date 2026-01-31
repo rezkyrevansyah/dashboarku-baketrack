@@ -24,7 +24,10 @@ export default function InputPage() {
       value: p.name,
       label: p.name,
       price: p.price,
-      icon: p.image
+      icon: p.image,
+      stock: p.stock,
+      sold: p.sold,
+      id: p.id
     }));
   }, [data]);
 
@@ -49,6 +52,11 @@ export default function InputPage() {
   const onProductChange = useCallback((val: string) => {
     handleProductChange(val, productOptions);
   }, [handleProductChange, productOptions]);
+  
+  const onSubmit = useCallback(async (e: React.FormEvent) => {
+    // We pass the full productOptions here so the handler can access IDs and Stock
+    await handleSubmit(e, productOptions);
+  }, [handleSubmit, productOptions]);
 
   const filterFn = useCallback((item: any, query: string) => 
      item.product.toLowerCase().includes(query.toLowerCase()),
@@ -119,7 +127,7 @@ export default function InputPage() {
            <TransactionForm 
               formData={formData}
               setFormData={setFormData}
-              handleSubmit={handleSubmit}
+              handleSubmit={onSubmit}
               loading={loading}
               editingId={editingId}
               resetForm={resetForm}

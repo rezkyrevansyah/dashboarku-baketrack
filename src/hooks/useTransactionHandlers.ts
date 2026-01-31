@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { submitTransaction, deleteTransaction, Transaction } from '@/services/api';
+import { submitTransaction, deleteTransaction, manageProduct, Transaction } from '@/services/api';
 import { useAuth } from '@/context/AuthContext';
 
 interface FormData {
@@ -37,7 +37,7 @@ export function useTransactionHandlers({ refreshData }: UseTransactionHandlersPr
     setEditingId(null);
   }, []);
 
-  const handleSubmit = useCallback(async (e: React.FormEvent) => {
+  const handleSubmit = useCallback(async (e: React.FormEvent, productOptions?: { value: string; stock?: number; sold?: number; id?: number }[]) => {
     e.preventDefault();
     if (!formData.product) return;
     
@@ -57,6 +57,24 @@ export function useTransactionHandlers({ refreshData }: UseTransactionHandlersPr
     const success = await submitTransaction(transactionData, !!editingId);
     
     if (success) {
+      // --- LOGIC TAMBAHAN: UPDATE STOCK & SOLD (Hanya untuk Transaksi Baru) ---
+      if (!editingId && productOptions) {
+        const productInfo = productOptions.find(p => p.value === formData.product);
+        
+        // Ensure we have ID and stock/sold data before updating
+        if (productInfo && productInfo.id !== undefined && productInfo.stock !== undefined && productInfo.sold !== undefined) {
+          const newStock = Math.max(0, productInfo.stock - finalQty); // Prevent negative
+          const newSold = productInfo.sold + finalQty;
+
+          // Update Product Backend
+          await manageProduct('update', {
+            id: productInfo.id,
+            stock: newStock,
+            sold: newSold
+          });
+        }
+      }
+      
       await refreshData();
       resetForm();
     } else {

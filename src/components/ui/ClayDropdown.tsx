@@ -7,7 +7,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 interface DropdownOption {
   value: string;
   label: string;
-  icon?: string;
+  price: number;
+  icon: string;
+  stock?: number;
 }
 
 interface ClayDropdownProps {
@@ -36,8 +38,8 @@ export const ClayDropdown = memo(function ClayDropdown({ options, value, onChang
 
   const selectedOption = options.find(opt => opt.value === value);
 
-  const handleSelect = (optionValue: string) => {
-    onChange(optionValue);
+  const handleSelect = (val: string) => {
+    onChange(val);
     setIsOpen(false);
   };
 
@@ -50,13 +52,11 @@ export const ClayDropdown = memo(function ClayDropdown({ options, value, onChang
         required={required}
         className="absolute opacity-0 pointer-events-none"
         tabIndex={-1}
-        // Improve performance by not re-rendering children if options didn't change
       >
         <option value="">{placeholder}</option>
         {options.map(opt => (
           <option key={opt.value} value={opt.value}>{opt.label}</option>
         ))}
-        {/* Fallback option if value is set but not in options (e.g. legacy data) */}
         {value && !options.find(o => o.value === value) && (
            <option value={value}>{value}</option>
         )}
@@ -78,63 +78,68 @@ export const ClayDropdown = memo(function ClayDropdown({ options, value, onChang
         </span>
         <motion.div
           animate={{ rotate: isOpen ? 180 : 0 }}
-          transition={{ duration: 0.3, ease: 'easeInOut' }}
+          transition={{ duration: 0.2 }}
         >
           <ChevronDown size={20} className="text-bakery-pink" />
         </motion.div>
       </button>
 
-      {/* Dropdown Menu */}
+      {/* Dropdown Menu - Simplified for Performance */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -10, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -10, scale: 0.95 }}
-            transition={{ duration: 0.2, ease: 'easeOut' }}
-            className="absolute top-full left-0 right-0 mt-2 bg-white rounded-2xl shadow-2xl border-2 border-pink-100 overflow-hidden z-50"
+            initial={{ opacity: 0, y: -5 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -5 }}
+            transition={{ duration: 0.15 }}
+            className="absolute top-full left-0 right-0 mt-2 bg-white rounded-2xl shadow-xl border-2 border-pink-100 overflow-hidden z-50 max-h-64 overflow-y-auto"
           >
-            <div className="max-h-64 overflow-y-auto">
-              {/* Placeholder Option */}
-              <button
-                type="button"
-                onClick={() => handleSelect('')}
-                className="w-full px-5 py-3 text-left hover:bg-gradient-to-r hover:from-pink-50 hover:to-purple-50 transition-all flex items-center justify-between group"
-              >
-                <span className="text-bakery-muted/50 font-semibold text-sm">{placeholder}</span>
-                {!value && <Check size={18} className="text-bakery-pink" />}
-              </button>
+            {/* Placeholder Option */}
+            <button
+              type="button"
+              onClick={() => handleSelect('')}
+              className="w-full px-5 py-3 text-left hover:bg-pink-50 transition-colors flex items-center justify-between"
+            >
+              <span className="text-bakery-muted/50 font-semibold text-sm">{placeholder}</span>
+              {!value && <Check size={18} className="text-bakery-pink" />}
+            </button>
 
-              {/* Product Options */}
-              {options.map((option) => (
+            {/* Product Options - No individual motion components */}
+            {options.map((option) => {
+              const isOOS = option.stock !== undefined && option.stock <= 0;
+              return (
                 <button
                   key={option.value}
                   type="button"
                   onClick={() => handleSelect(option.value)}
-                  className="w-full px-5 py-4 text-left hover:bg-gradient-to-r hover:from-pink-50 hover:to-purple-50 transition-all flex items-center justify-between gap-3 group border-t border-pink-50"
+                  disabled={isOOS}
+                  className={`w-full px-5 py-4 text-left flex items-center gap-4 transition-colors border-b last:border-0 border-gray-50
+                      ${selectedOption?.value === option.value ? 'bg-pink-50/50' : 'hover:bg-gray-50'}
+                      ${isOOS ? 'opacity-50 cursor-not-allowed bg-gray-50' : ''}
+                  `}
                 >
-                  <div className="flex items-center gap-3">
-                    {option.icon && (
-                      <span className="text-2xl group-hover:scale-110 transition-transform">
-                        {option.icon}
-                      </span>
+                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-xl shrink-0 ${isOOS ? 'bg-gray-200 grayscale' : 'bg-white shadow-sm border border-pink-100'}`}>
+                      {option.icon}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center justify-between">
+                         <span className={`font-bold truncate ${selectedOption?.value === option.value ? 'text-bakery-pink' : 'text-bakery-text'} ${isOOS ? '!text-gray-400' : ''}`}>
+                            {option.label}
+                         </span>
+                         {isOOS && (
+                            <span className="text-[10px] font-black text-white bg-red-400 px-2 py-0.5 rounded-full uppercase ml-2">
+                               HABIS
+                            </span>
+                         )}
+                      </div>
+                      <span className="text-xs font-bold text-bakery-muted opacity-60">Rp {option.price.toLocaleString()}</span>
+                    </div>
+                    {selectedOption?.value === option.value && !isOOS && (
+                      <div className="w-2 h-2 rounded-full bg-pink-400"></div>
                     )}
-                    <span className="text-bakery-text font-bold group-hover:text-bakery-pink transition-colors">
-                      {option.label}
-                    </span>
-                  </div>
-                  {value === option.value && (
-                    <motion.div
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      className="w-6 h-6 bg-bakery-pink rounded-full flex items-center justify-center"
-                    >
-                      <Check size={14} className="text-white" strokeWidth={3} />
-                    </motion.div>
-                  )}
                 </button>
-              ))}
-            </div>
+              );
+            })}
           </motion.div>
         )}
       </AnimatePresence>
