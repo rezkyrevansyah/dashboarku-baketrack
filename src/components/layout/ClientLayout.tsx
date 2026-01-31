@@ -4,12 +4,14 @@ import { useAuth, AuthProvider } from '@/context/AuthContext';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { Sidebar } from './Sidebar';
+import { Menu } from 'lucide-react';
 
 function ClientLayoutContent({ children }: { children: React.ReactNode }) {
   const { isLoggedIn, loading } = useAuth();
   const router = useRouter();
   const pathname = usePathname();
   const [isReady, setIsReady] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
     if (!loading) {
@@ -39,8 +41,17 @@ function ClientLayoutContent({ children }: { children: React.ReactNode }) {
   // Otherwise render with Sidebar (Dashboard Layout)
   return (
     <div className="flex w-full min-h-screen">
-        <Sidebar />
+        <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
         <main className="flex-1 p-4 md:p-8 ml-0 md:ml-0 transition-all duration-300">
+            <div className="md:hidden mb-6 flex items-center justify-between">
+              <button 
+                onClick={() => setIsSidebarOpen(true)}
+                className="p-2.5 bg-white rounded-xl shadow-sm border border-pink-100 text-pink-500 hover:bg-pink-50 transition-colors active:scale-95"
+              >
+                <Menu size={24} strokeWidth={2.5} />
+              </button>
+              <span className="font-bold text-bakery-muted text-sm uppercase tracking-widest mr-2">BakeTrack</span>
+            </div>
             {children}
         </main>
     </div>

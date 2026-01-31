@@ -8,7 +8,7 @@ export function CurrencySettingsCard() {
   const { t, exchangeRate, setExchangeRate } = usePreferences();
 
   return (
-    <div className="clay-card-static h-full p-8 flex flex-col relative overflow-hidden bg-white group hover:border-blue-200 transition-colors">
+    <div className="clay-card-static h-full p-4 sm:p-6 md:p-8 flex flex-col relative overflow-hidden bg-white group hover:border-blue-200 transition-colors">
       {/* Decor */}
       <div className="absolute -top-10 -right-10 w-40 h-40 bg-blue-50/50 rounded-full blur-3xl pointer-events-none"></div>
 

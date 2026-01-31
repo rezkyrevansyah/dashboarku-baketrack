@@ -38,7 +38,7 @@ export function TransactionForm({
 }: TransactionFormProps) {
   const { t, formatPrice, currency } = usePreferences();
   return (
-    <div className={`clay-card-static p-10 !rounded-[48px] shadow-2xl relative overflow-hidden transition-colors duration-500 ${editingId ? 'bg-orange-50 border-orange-200' : '!bg-white border-b-8 border-pink-100/30'}`}>
+    <div className={`clay-card-static p-4 sm:p-6 md:p-10 !rounded-[32px] sm:!rounded-[48px] shadow-2xl relative overflow-hidden transition-colors duration-500 ${editingId ? 'bg-orange-50 border-orange-200' : '!bg-white border-b-8 border-pink-100/30'}`}>
         <div className="absolute top-0 right-0 w-80 h-80 bg-pink-100/20 rounded-full blur-[100px] -mr-40 -mt-40 pointer-events-none"></div>
 
         <form onSubmit={handleSubmit} className="relative z-10 space-y-10">
@@ -49,7 +49,7 @@ export function TransactionForm({
                 {t('form.date')}
               </label>
               <div className="relative group">
-                <div className="absolute left-6 top-1/2 -translate-y-1/2 text-pink-300 group-focus-within:text-pink-500 transition-colors pointer-events-none">
+                <div className="absolute left-3 sm:left-4 md:left-6 top-1/2 -translate-y-1/2 text-pink-300 group-focus-within:text-pink-500 transition-colors pointer-events-none scale-90 sm:scale-100">
                   <Calendar size={22} strokeWidth={2.5} />
                 </div>
                 <input 
@@ -57,7 +57,7 @@ export function TransactionForm({
                   required
                   value={formData.date}
                   onChange={e => setFormData({...formData, date: e.target.value})}
-                  className="clay-input w-full !pl-16 !py-5 !bg-white !shadow-sm !border-2 !border-gray-50 focus:!border-pink-200"
+                  className="clay-input w-full !pl-10 sm:!pl-12 md:!pl-16 !py-3 sm:!py-5 !text-sm sm:!text-base !bg-white !shadow-sm !border-2 !border-gray-50 focus:!border-pink-200"
                 />
               </div>
             </div>
@@ -97,14 +97,14 @@ export function TransactionForm({
                 {t('form.quantity')}
               </label>
               <div className="relative group">
-                <div className="absolute left-6 top-1/2 -translate-y-1/2 text-orange-300 group-focus-within:text-orange-500 transition-colors pointer-events-none">
+                <div className="absolute left-3 sm:left-4 md:left-6 top-1/2 -translate-y-1/2 text-orange-300 group-focus-within:text-orange-500 transition-colors pointer-events-none scale-90 sm:scale-100">
                   <Hash size={22} strokeWidth={2.5} />
                 </div>
                 <NumericInput 
                   required
                   value={formData.qty}
                   onValueChange={(val) => setFormData({...formData, qty: val === 0 ? '' : val})}
-                  className="clay-input w-full !pl-16 !py-5 !bg-white !shadow-sm !border-2 !border-gray-50 focus:!border-orange-200"
+                  className="clay-input w-full !pl-10 sm:!pl-12 md:!pl-16 !py-3 sm:!py-5 !text-sm sm:!text-base !bg-white !shadow-sm !border-2 !border-gray-50 focus:!border-orange-200"
                   placeholder={t('form.qty_placeholder')}
                 />
               </div>
@@ -116,10 +116,10 @@ export function TransactionForm({
                 {t('form.price_unit')}
               </label>
               <div className="relative">
-                <div className="absolute left-6 top-1/2 -translate-y-1/2 text-blue-300 pointer-events-none">
+                <div className="absolute left-3 sm:left-4 md:left-6 top-1/2 -translate-y-1/2 text-blue-300 pointer-events-none scale-90 sm:scale-100">
                   <Tag size={22} strokeWidth={2.5} />
                 </div>
-                <div className="clay-input w-full !pl-16 !py-5 !bg-gray-50/50 font-black text-bakery-text/40 flex items-center justify-between border-dashed border-2">
+                <div className="clay-input w-full !pl-10 sm:!pl-12 md:!pl-16 !py-3 sm:!py-5 !text-sm sm:!text-base !bg-gray-50/50 font-black text-bakery-text/40 flex items-center justify-between border-dashed border-2">
                    <span>{currency}</span> 
                    <span className="text-bakery-text">{formatPrice(formData.price)}</span>
                 </div>

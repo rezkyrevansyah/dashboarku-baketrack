@@ -70,17 +70,17 @@ export default function SettingsPage() {
       {/* --- HEADER --- */}
       <div className="px-6 pt-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div>
-          <h1 className="text-5xl font-black text-bakery-text tracking-tighter mb-2 flex items-center gap-4">
-             <span className="p-3 bg-white rounded-[20px] text-pink-500 shadow-sm border border-pink-100">
-                <Settings size={32} strokeWidth={2.5} />
+          <h1 className="text-3xl sm:text-5xl font-black text-bakery-text tracking-tighter mb-2 flex items-center gap-3 sm:gap-4 flex-wrap">
+             <span className="p-2 sm:p-3 bg-white rounded-[16px] sm:rounded-[20px] text-pink-500 shadow-sm border border-pink-100 flex-shrink-0">
+                <Settings size={20} className="sm:w-8 sm:h-8" strokeWidth={2.5} />
              </span>
              {t('settings.title')}
           </h1>
-          <p className="text-bakery-muted font-medium text-lg pl-1 opacity-80">
+          <p className="text-bakery-muted font-medium text-sm sm:text-lg pl-1 opacity-80">
              {t('settings.subtitle')}
           </p>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="w-full md:w-auto flex justify-center md:justify-end items-center gap-3 flex-wrap">
            <SyncButton variant="compact" />
            <LanguageCurrencySwitcher />
         </div>

@@ -15,7 +15,7 @@ export function ProfileCard({ profile, onEditClick }: ProfileCardProps) {
   const displayPhoto = profile.photourl || '👩‍🍳';
 
   return (
-    <div className="clay-card-static p-8 relative overflow-hidden group bg-white">
+    <div className="clay-card-static p-4 sm:p-6 md:p-8 relative overflow-hidden group bg-white">
       <div className="absolute top-0 right-0 w-64 h-64 bg-pink-50/50 rounded-full blur-3xl -mr-32 -mt-20 pointer-events-none opacity-60"></div>
       
       <div className="flex flex-col md:flex-row items-center gap-8 relative z-10">

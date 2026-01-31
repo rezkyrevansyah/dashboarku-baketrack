@@ -16,7 +16,7 @@ export function IntegrationCard() {
   };
 
   return (
-    <div className="clay-card-static p-8 md:p-12 relative overflow-hidden bg-white">
+    <div className="clay-card-static p-4 sm:p-6 md:p-12 relative overflow-hidden bg-white">
       {/* Background Decor */}
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-purple-50/40 rounded-full blur-[120px] -mr-80 -mt-80 pointer-events-none"></div>
 

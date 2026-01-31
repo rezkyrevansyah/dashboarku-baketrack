@@ -26,8 +26,8 @@ export function WeeklyChart({ data }: { data: WeeklyData[] }) {
                </span>
             </div>
          </div>
-         <div className="overflow-x-auto pb-4 -mx-4 px-4 sm:mx-0 sm:px-0 scrollbar-hide">
-            <div className="min-w-[600px] h-[250px]">
+         <div className="overflow-x-auto w-full pb-4 scrollbar-hide">
+            <div className="min-w-[500px] h-[250px]">
                <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={data} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                     <XAxis 

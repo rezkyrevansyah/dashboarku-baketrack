@@ -130,22 +130,22 @@ export default function ReportPage() {
       {/* Header Section */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 px-4 pt-4 md:pt-6">
         <div>
-          <h1 className="text-4xl font-black text-bakery-text tracking-tight mb-2">{t('report.title')}</h1>
-          <p className="text-bakery-muted font-bold text-sm tracking-wide opacity-70 uppercase">
+          <h1 className="text-3xl sm:text-4xl font-black text-bakery-text tracking-tight mb-1 sm:mb-2">{t('report.title')}</h1>
+          <p className="text-bakery-muted font-bold text-xs sm:text-sm tracking-wide opacity-70 uppercase">
              {t('report.subtitle')}
           </p>
         </div>
 
-        <div className="flex flex-col-reverse sm:flex-row items-center gap-4">
+        <div className="flex flex-col md:flex-row items-stretch md:items-center gap-4 w-full md:w-auto">
            {/* Status Bar */}
-           <div className="flex items-center gap-1.5 p-1.5 bg-white/95 rounded-2xl border border-white/50 shadow-sm">
-              <div className="hidden md:flex flex-col px-3">
+           <div className="flex flex-wrap justify-center md:justify-end items-center gap-2 p-2 bg-white/95 rounded-2xl border border-white/50 shadow-sm w-full md:w-auto">
+              <div className="hidden lg:flex flex-col px-3">
                  <span className="text-[9px] font-black text-bakery-muted uppercase tracking-widest opacity-50">{t('period')}</span>
                  <span className="text-xs font-black text-bakery-text">
                     {new Date().toLocaleDateString(t('language') === 'Bahasa' ? 'id-ID' : 'en-US', { month: 'short', year: 'numeric' })}
                  </span>
               </div>
-              <div className="h-6 w-px bg-gray-200 hidden md:block"></div>
+              <div className="h-6 w-px bg-gray-200 hidden lg:block"></div>
               
               <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-green-50 border border-green-100 text-green-600">
                  <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></div>
@@ -157,8 +157,8 @@ export default function ReportPage() {
            </div>
 
            {/* Primary Action */}
-           <Link href="/input">
-              <ClayButton className="h-12 px-6 flex items-center gap-2.5 text-sm font-black !rounded-2xl bg-gradient-to-r from-pink-400 to-pink-500 text-white shadow-lg hover:shadow-pink-200 hover:-translate-y-0.5 transition-all">
+           <Link href="/input" className="w-full md:w-auto">
+              <ClayButton className="w-full md:w-auto h-12 px-6 flex items-center justify-center gap-2.5 text-sm font-black !rounded-2xl bg-gradient-to-r from-pink-400 to-pink-500 text-white shadow-lg hover:shadow-pink-200 hover:-translate-y-0.5 transition-all">
                 <Plus size={20} strokeWidth={3} />
                 {t('report.input_sales')}
               </ClayButton>
