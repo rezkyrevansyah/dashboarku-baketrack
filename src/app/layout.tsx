@@ -12,6 +12,15 @@ const nunito = Nunito({
 export const metadata: Metadata = {
   title: "BakeTrack - Bakery Dashboard",
   description: "Claymorphism Dashboard for Bakery",
+  applicationName: "BakeTrack",
+  appleWebApp: {
+    capable: true,
+    title: "BakeTrack",
+    statusBarStyle: "default",
+  },
+  formatDetection: {
+    telephone: false,
+  },
 };
 
 export const viewport = {
