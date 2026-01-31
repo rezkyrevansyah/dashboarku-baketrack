@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, memo } from 'react';
 import { ChevronDown, Check } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -18,7 +18,7 @@ interface ClayDropdownProps {
   required?: boolean;
 }
 
-export function ClayDropdown({ options, value, onChange, placeholder = 'Select...', required }: ClayDropdownProps) {
+export const ClayDropdown = memo(function ClayDropdown({ options, value, onChange, placeholder = 'Select...', required }: ClayDropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -50,6 +50,7 @@ export function ClayDropdown({ options, value, onChange, placeholder = 'Select..
         required={required}
         className="absolute opacity-0 pointer-events-none"
         tabIndex={-1}
+        // Improve performance by not re-rendering children if options didn't change
       >
         <option value="">{placeholder}</option>
         {options.map(opt => (
@@ -139,4 +140,4 @@ export function ClayDropdown({ options, value, onChange, placeholder = 'Select..
       </AnimatePresence>
     </div>
   );
-}
+});

@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useMemo, useCallback } from 'react';
 import { X, Search, RotateCw, Plus } from 'lucide-react';
 import { useDashboard } from '@/context/DashboardContext';
 import { usePreferences } from '@/context/PreferencesContext';
@@ -46,6 +46,14 @@ export default function InputPage() {
     total
   } = useTransactionHandlers({ refreshData });
 
+  const onProductChange = useCallback((val: string) => {
+    handleProductChange(val, productOptions);
+  }, [handleProductChange, productOptions]);
+
+  const filterFn = useCallback((item: any, query: string) => 
+     item.product.toLowerCase().includes(query.toLowerCase()),
+  []);
+
   // Table Logic
   const { 
     data: tableData,
@@ -63,7 +71,7 @@ export default function InputPage() {
     data: data?.transactions || [],
     itemsPerPage: 5, 
     initialSort: { key: 'date', direction: 'desc' },
-    filterFn: (item, query) => item.product.toLowerCase().includes(query.toLowerCase())
+    filterFn
   });
 
   if (dataLoading && !data) {
@@ -116,7 +124,7 @@ export default function InputPage() {
               editingId={editingId}
               resetForm={resetForm}
               productOptions={productOptions}
-              handleProductChange={(val) => handleProductChange(val, productOptions)}
+              handleProductChange={onProductChange}
               total={total}
             />
         </div>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { submitTransaction, deleteTransaction, Transaction } from '@/services/api';
 import { useAuth } from '@/context/AuthContext';
 
@@ -27,7 +27,7 @@ export function useTransactionHandlers({ refreshData }: UseTransactionHandlersPr
     price: 0
   });
 
-  const resetForm = () => {
+  const resetForm = useCallback(() => {
     setFormData({
       date: new Date().toISOString().split('T')[0],
       product: '',
@@ -35,9 +35,9 @@ export function useTransactionHandlers({ refreshData }: UseTransactionHandlersPr
       price: 0
     });
     setEditingId(null);
-  };
+  }, []);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.product) return;
     
@@ -63,9 +63,9 @@ export function useTransactionHandlers({ refreshData }: UseTransactionHandlersPr
       alert('Gagal menyimpan ke Google Sheets. Silakan coba lagi.');
     }
     setLoading(false);
-  };
+  }, [formData, user, editingId, refreshData, resetForm]);
 
-  const handleEdit = (t: Transaction) => {
+  const handleEdit = useCallback((t: Transaction) => {
     let dateStr = '';
     try {
       const d = new Date(t.date);
@@ -82,14 +82,14 @@ export function useTransactionHandlers({ refreshData }: UseTransactionHandlersPr
     });
     setEditingId(t.id || null);
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+  }, []);
 
-  const confirmDelete = (t: Transaction) => {
+  const confirmDelete = useCallback((t: Transaction) => {
     setTransactionToDelete(t);
     setIsDeleteModalOpen(true);
-  };
+  }, []);
 
-  const handleDelete = async () => {
+  const handleDelete = useCallback(async () => {
     if (!transactionToDelete?.id) return;
     setLoading(true);
     const success = await deleteTransaction(transactionToDelete.id);
@@ -101,16 +101,16 @@ export function useTransactionHandlers({ refreshData }: UseTransactionHandlersPr
       alert('Gagal menghapus transaksi.');
     }
     setLoading(false);
-  };
+  }, [transactionToDelete, refreshData]);
 
-  const handleProductChange = (productValue: string, productOptions: { value: string; price: number }[]) => {
+  const handleProductChange = useCallback((productValue: string, productOptions: { value: string; price: number }[]) => {
     const selected = productOptions.find(p => p.value === productValue);
     setFormData(prev => ({
       ...prev,
       product: productValue,
       price: selected ? Number(selected.price) : prev.price
     }));
-  };
+  }, []);
 
   return {
     loading,
