@@ -5,6 +5,7 @@ import { useAuth } from '@/context/AuthContext';
 import { usePreferences } from '@/context/PreferencesContext';
 import { motion } from 'framer-motion';
 import { User, Lock, ArrowRight, AlertCircle, Globe } from 'lucide-react';
+import Image from 'next/image';
 import { clsx } from 'clsx';
 
 export default function LoginPage() {
@@ -62,13 +63,22 @@ export default function LoginPage() {
             <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-purple-100/50 rounded-full blur-3xl"></div>
 
             <div className="relative z-10">
-                <div className="text-center mb-10">
-                    {/* Logo: White background with pink shadow for better contrast */}
-                    <div className="w-24 h-24 bg-white rounded-3xl mx-auto flex items-center justify-center text-5xl shadow-[0_10px_30px_-10px_rgba(244,114,182,0.5)] transform -rotate-6 mb-6 ring-4 ring-pink-50">
-                        🧁
+                <div className="text-center mb-6">
+                    {/* Logo: Displaying the new logo image */}
+                    <div className="w-28 h-28 bg-white rounded-3xl mx-auto flex items-center justify-center p-2 shadow-[0_10px_30px_-10px_rgba(244,114,182,0.5)] transform -rotate-6 mb-6 ring-4 ring-pink-50">
+                        <Image 
+                            src="/logo.png" 
+                            alt="BakeTrack Logo" 
+                            width={100} 
+                            height={100}
+                            className="w-full h-full object-contain"
+                        />
                     </div>
-                    <h1 className="text-3xl font-extrabold text-gray-800 mb-2">{t('login.welcome')}</h1>
-                    <p className="text-gray-500">{t('login.subtitle')}</p>
+                    <h1 className="text-3xl font-extrabold text-gray-800 mb-1">{t('login.welcome')}</h1>
+                    <p className="text-gray-500 text-sm mb-1">{t('login.subtitle')}</p>
+                    <p className="text-pink-500 font-bold text-[10px] uppercase tracking-widest opacity-80">
+                        by dashboardku.co bakery tools
+                    </p>
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
