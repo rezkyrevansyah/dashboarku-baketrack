@@ -185,9 +185,9 @@ export default function SetupPage() {
                     {step === 3 ? (
                         <button
                             onClick={handleSaveAndFinish}
-                            disabled={!apiUrl || loading}
+                            disabled={!apiUrl || loading || testStatus !== 'success'} // Must test successfully
                             className={`flex items-center gap-2 px-8 py-3 rounded-xl font-bold transition-all transform ${
-                                !apiUrl ? 'bg-gray-200 text-gray-400 cursor-not-allowed' : 'bg-pink-600 text-white hover:bg-pink-700 hover:scale-105 shadow-lg'
+                                !apiUrl || testStatus !== 'success' ? 'bg-gray-200 text-gray-400 cursor-not-allowed' : 'bg-pink-600 text-white hover:bg-pink-700 hover:scale-105 shadow-lg'
                             }`}
                         >
                             {loading ? currentT.btnSave : currentT.btnFinish} <FiCheckCircle />

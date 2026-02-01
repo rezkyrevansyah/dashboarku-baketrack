@@ -13,6 +13,7 @@ export const metadata: Metadata = {
   title: "BakeTrack - Bakery Dashboard",
   description: "Claymorphism Dashboard for Bakery",
   applicationName: "BakeTrack",
+  manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
     title: "BakeTrack",
@@ -28,6 +29,7 @@ export const viewport = {
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
+  themeColor: "#db2777",
 };
 
 export default function RootLayout({

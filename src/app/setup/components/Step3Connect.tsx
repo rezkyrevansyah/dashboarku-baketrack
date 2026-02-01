@@ -27,14 +27,25 @@ export function Step3Connect({
       </div>
 
       <div className="space-y-4">
+         {/* Desktop Recommendation */}
+         <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 flex gap-3 text-left">
+           <div className="text-blue-600 shrink-0 mt-1">
+             <FiServer size={20} />
+           </div>
+           <div>
+             <h4 className="font-bold text-blue-800 text-sm mb-1">{t.desktopRecTitle}</h4>
+             <p className="text-xs text-blue-700 leading-relaxed" dangerouslySetInnerHTML={{ __html: t.desktopRecText.replace(/\*\*/g, '<b>').replace(/\*\*/g, '</b>') }} />
+           </div>
+         </div>
+
         {/* Google Warning Box */}
-        <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 flex gap-3 text-left">
-           <div className="text-yellow-600 shrink-0 mt-1">
+        <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 flex gap-3 text-left">
+           <div className="text-amber-600 shrink-0 mt-1">
              <FiInfo size={20} />
            </div>
            <div>
-             <h4 className="font-bold text-yellow-800 text-sm mb-1">{t.googleWarnTitle}</h4>
-             <p className="text-xs text-yellow-700 leading-relaxed" dangerouslySetInnerHTML={{ __html: t.googleWarnText.replace(/\*\*/g, '<b>').replace(/\*\*/g, '</b>') }} />
+             <h4 className="font-bold text-amber-800 text-sm mb-1">{t.googleWarnTitle}</h4>
+             <p className="text-xs text-amber-700 leading-relaxed" dangerouslySetInnerHTML={{ __html: t.googleWarnText.replace(/\*\*/g, '<b>').replace(/\*\*/g, '</b>') }} />
            </div>
         </div>
 

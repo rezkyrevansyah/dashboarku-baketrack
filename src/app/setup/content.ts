@@ -39,7 +39,10 @@ export const setupTranslations = {
       copyEmail: "Email disalin!",
       copyPass: "Password disalin!",
       googleWarnTitle: "Peringatan Keamanan Google",
-      googleWarnText: "Jika muncul peringatan 'Google hasn't verified this app' atau 'Back to safety' saat otorisasi, klik **Advanced** -> **Go to ... (unsafe)**. Ini aman karena script ini adalah milik Anda sendiri."
+      googleWarnText: "Jika muncul peringatan 'Google hasn't verified this app' atau 'Back to safety' saat otorisasi, klik **Advanced** -> **Go to ... (unsafe)**. Ini aman karena script ini adalah milik Anda sendiri.",
+      desktopRecTitle: "Rekomendasi Perangkat",
+      desktopRecText: "Untuk pengalaman setup terbaik dan menghindari kesalahan copy-paste, kami sangat menyarankan menggunakan **Laptop atau PC Desktop**.",
+      mustTest: "Koneksi harus berhasil untuk melanjutkan."
     },
     EN: {
       selectLang: "Select Language",
@@ -81,6 +84,9 @@ export const setupTranslations = {
       copyEmail: "Email copied!",
       copyPass: "Password copied!",
       googleWarnTitle: "Google Security Warning",
-      googleWarnText: "If you see 'Google hasn't verified this app' or 'Back to safety' during authorization, click **Advanced** -> **Go to ... (unsafe)**. This is safe as the script belongs to you."
+      googleWarnText: "If you see 'Google hasn't verified this app' or 'Back to safety' during authorization, click **Advanced** -> **Go to ... (unsafe)**. This is safe as the script belongs to you.",
+      desktopRecTitle: "Device Recommendation",
+      desktopRecText: "For the best setup experience and to avoid copy-paste errors, we highly recommend using a **Laptop or Desktop PC**.",
+      mustTest: "Connection must be successful to proceed." 
     }
   };
