@@ -15,9 +15,12 @@ function ClientLayoutContent({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (!loading) {
-      if (!isLoggedIn && pathname !== '/login') {
+      // Allow access to login and setup pages without auth
+      if (!isLoggedIn && pathname !== '/login' && pathname !== '/setup') {
         router.push('/login');
-      } else if (isLoggedIn && pathname === '/login') {
+      } 
+      // Redirect logged-in users away from login page, but ALLOW setup page for re-configuration
+      else if (isLoggedIn && pathname === '/login') {
         router.push('/');
       } else {
         setIsReady(true);
@@ -33,8 +36,8 @@ function ClientLayoutContent({ children }: { children: React.ReactNode }) {
     );
   }
 
-  // If on login page, render children (LoginPage) without Sidebar
-  if (pathname === '/login') {
+  // If on login or setup page, render children without Sidebar (Full Screen)
+  if (pathname === '/login' || pathname === '/setup') {
       return <>{children}</>;
   }
 

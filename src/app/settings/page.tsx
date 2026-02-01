@@ -10,7 +10,7 @@ import { SettingsHeader } from '@/components/settings/SettingsHeader';
 import { ProfileCard } from '@/components/settings/ProfileCard';
 import { SecurityCard } from '@/components/settings/SecurityCard';
 import { CurrencySettingsCard } from '@/components/settings/CurrencySettingsCard';
-import { IntegrationCard } from '@/components/settings/IntegrationCard';
+
 import { EditProfileModal } from '@/components/settings/EditProfileModal';
 
 export default function SettingsPage() {
@@ -73,8 +73,37 @@ export default function SettingsPage() {
           <CurrencySettingsCard />
         </div>
 
-        {/* Integration Card - Full Width */}
-        <IntegrationCard />
+        {/* Database Connection Card */}
+        <div className="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-sm border border-gray-100 dark:border-gray-700">
+             <div className="flex items-center justify-between mb-6">
+                <h3 className="text-xl font-bold text-gray-800 dark:text-white flex items-center gap-2">
+                    🔌 {t('settings.database') || 'Database Connection'}
+                </h3>
+             </div>
+             
+             <div className="bg-gray-50 dark:bg-gray-700/50 rounded-xl p-6 flex flex-col md:flex-row items-center justify-between gap-4">
+                <div className="flex items-center gap-4">
+                    <div className="p-3 bg-green-100 text-green-600 rounded-full">
+                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" /></svg>
+                    </div>
+                    <div>
+                        <p className="font-medium text-gray-900 dark:text-gray-100">Google Apps Script</p>
+                        <p className="text-sm text-gray-500 truncate max-w-[200px] md:max-w-md">
+                            {localStorage.getItem('baketrack_api_url') 
+                                ? 'Connected: ...' + localStorage.getItem('baketrack_api_url')?.slice(-20) 
+                                : 'Not Configured'}
+                        </p>
+                    </div>
+                </div>
+                
+                <button 
+                    onClick={() => window.location.href = '/setup?step=3'}
+                    className="px-6 py-2 bg-gray-900 text-white rounded-lg font-medium hover:bg-gray-800 transition-all shadow-lg hover:shadow-xl"
+                >
+                    Update Connection
+                </button>
+             </div>
+        </div>
       </div>
 
       {/* Modal */}

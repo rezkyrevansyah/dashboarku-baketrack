@@ -20,9 +20,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const router = useRouter();
 
-  // Check for existing session
+  // Check for existing session and configuration
   useEffect(() => {
     const checkAuth = async () => {
+      // 1. Check Configuration
+      const configUrl = localStorage.getItem('baketrack_api_url');
+      // If no config and not on setup page, redirect
+      if (!configUrl && window.location.pathname !== '/setup') {
+         router.push('/setup');
+         setLoading(false);
+         return;
+      }
+
+      // 2. Check Auth
       const storedAuth = localStorage.getItem('baketrack_auth');
       if (storedAuth === 'true') {
         try {

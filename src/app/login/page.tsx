@@ -137,10 +137,15 @@ export default function LoginPage() {
                     </motion.button>
                 </form>
 
-                <div className="mt-8 text-center">
+                <div className="mt-8 text-center space-y-4">
                     <p className="text-gray-400 text-sm">
                         {t('login.forgot_pass')}
                     </p>
+                    
+                    <a href="/setup?step=3" className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-pink-500 transition-colors">
+                        <User size={14} className="opacity-0" /> {/* Spacer */}
+                        ⚙️ {language === 'EN' ? 'Configure Database' : 'Konfigurasi Database'}
+                    </a>
                 </div>
             </div>
         </div>
