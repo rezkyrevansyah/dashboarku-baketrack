@@ -18,6 +18,7 @@ const PROXY_URL = '/api/proxy';
  */
 export async function fetchFullData(): Promise<FullDashboardData | null> {
   const SCRIPT_URL = getApiUrl();
+  console.log('Using Google Script URL:', SCRIPT_URL);
   if (!SCRIPT_URL) return null;
 
   try {
