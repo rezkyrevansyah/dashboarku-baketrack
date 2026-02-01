@@ -3,11 +3,13 @@
 import { Database, Globe, Link as LinkIcon, X, Copy as IconCopy } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { SyncButton } from '@/components/ui/SyncButton';
-import { GOOGLE_SCRIPT_URL } from '@/services/api';
+import { getApiUrl } from '@/services/api';
 
 export function IntegrationCard() {
+  const currentUrl = getApiUrl();
+
   const handleCopyUrl = () => {
-    navigator.clipboard.writeText(GOOGLE_SCRIPT_URL);
+    navigator.clipboard.writeText(currentUrl);
     const icon = document.getElementById('copy-btn-icon-new');
     if (icon) {
       icon.style.color = '#22c55e';
@@ -43,7 +45,7 @@ export function IntegrationCard() {
             </label>
             <div className="flex gap-2">
               <div className="flex-1 bg-white border border-gray-200 rounded-xl px-4 py-3 flex items-center shadow-sm min-w-0 overflow-hidden">
-                <code className="text-xs text-gray-500 font-mono truncate select-all block w-full">{GOOGLE_SCRIPT_URL}</code>
+                <code className="text-xs text-gray-500 font-mono truncate select-all block w-full">{currentUrl}</code>
               </div>
               <button
                 onClick={handleCopyUrl}

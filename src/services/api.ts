@@ -1,4 +1,5 @@
 import { Transaction, Product, Profile, FullDashboardData } from '@/types/dashboard';
+import { mapProfile } from './helpers';
 
 export type { Transaction, Product, Profile, FullDashboardData };
 
@@ -36,33 +37,16 @@ export async function fetchFullData(): Promise<FullDashboardData | null> {
     const rawData = await res.json();
     
     // Normalize Profile Data
-    // GAS might return various casings depending on sheet headers
     const profileRaw = rawData.profile || {};
     const profilesRaw = rawData.profiles || (rawData.profile ? [rawData.profile] : []); // Handle both V1 and V2 API
-    
-    // Helper to find case-insensitive key
-    const getVal = (obj: any, key: string) => {
-      if (!obj) return undefined;
-      const foundKey = Object.keys(obj).find(k => k.toLowerCase() === key.toLowerCase());
-      return foundKey ? obj[foundKey] : undefined;
-    };
-
-    const mapProfile = (p: any): Profile => ({
-      name: getVal(p, 'name') || 'Admin Bakery',
-      email: getVal(p, 'email') || 'admin@baketrack.com',
-      photourl: getVal(p, 'photourl') || getVal(p, 'photourl') || getVal(p, 'photo') || '👩‍🍳',
-      password: getVal(p, 'password') // Auto-mapped from dynamic sheet data
-    });
 
     const activeProfile = mapProfile(profileRaw);
     const allProfiles = profilesRaw.map(mapProfile);
 
-    // Normalize Transactions: ensure they have IDs if possible (fallback to timestamp if available, or just index logic in UI)
-    // The GAS V2 script returns them.
+    // Normalize Transactions
     const transactions = (rawData.transactions || []).map((t: any) => ({
       ...t,
       // If GAS script V2 is used, Column A is the ID/Timestamp.
-      // If we need to force it to string:
       id: t.timestamp ? t.timestamp.toString() : t.id?.toString()
     }));
 

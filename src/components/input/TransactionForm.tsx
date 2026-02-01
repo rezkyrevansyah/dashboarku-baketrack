@@ -7,24 +7,7 @@ import { Calendar, Package, Hash, Tag, Plus, Loader2, Save, AlertCircle } from '
 import { usePreferences } from '@/context/PreferencesContext';
 import { NumericInput } from '@/components/ui/NumericInput';
 
-type FormData = {
-  date: string;
-  product: string;
-  qty: number | '';
-  price: number;
-};
-
-type TransactionFormProps = {
-  formData: FormData;
-  setFormData: React.Dispatch<React.SetStateAction<FormData>>;
-  handleSubmit: (e: React.FormEvent) => Promise<void>;
-  loading: boolean;
-  editingId: string | null;
-  resetForm: () => void;
-  productOptions: { value: string; label: string; price: number; icon: string; stock: number }[];
-  handleProductChange: (val: string) => void;
-  total: number;
-};
+import { TransactionFormProps } from './types';
 
 export function TransactionForm({
   formData,
