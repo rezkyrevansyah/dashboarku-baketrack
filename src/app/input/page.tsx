@@ -1,15 +1,11 @@
 'use client';
 
 import { useMemo, useCallback } from 'react';
-import { X, Search, RotateCw, Plus } from 'lucide-react';
+import { X } from 'lucide-react';
 import { useDashboard } from '@/context/DashboardContext';
 import { usePreferences } from '@/context/PreferencesContext';
-import { useTable } from '@/hooks/useTable';
 import { useTransactionHandlers } from '@/hooks/useTransactionHandlers';
-import { SyncButton } from '@/components/ui/SyncButton';
 import { TransactionForm } from '@/components/input/TransactionForm';
-import { TransactionHistoryTable } from '@/components/input/TransactionHistoryTable';
-import { DeleteTransactionModal } from '@/components/input/DeleteTransactionModal';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 import { GlobalToolbar } from '@/components/ui/GlobalToolbar';
 
@@ -37,14 +33,8 @@ export default function InputPage() {
     formData,
     setFormData,
     editingId,
-    isDeleteModalOpen,
-    setIsDeleteModalOpen,
-    transactionToDelete,
     resetForm,
     handleSubmit,
-    handleEdit,
-    confirmDelete,
-    handleDelete,
     handleProductChange,
     total
   } = useTransactionHandlers({ refreshData });
@@ -57,30 +47,6 @@ export default function InputPage() {
     // We pass the full productOptions here so the handler can access IDs and Stock
     await handleSubmit(e, productOptions);
   }, [handleSubmit, productOptions]);
-
-  const filterFn = useCallback((item: any, query: string) => 
-     item.product.toLowerCase().includes(query.toLowerCase()),
-  []);
-
-  // Table Logic
-  const { 
-    data: tableData,
-    totalPages,
-    currentPage,
-    searchQuery,
-    setSearchQuery,
-    sortConfig,
-    handleSort,
-    goToPage,
-    itemsPerPage, 
-    setItemsPerPage,
-    totalItems
-  } = useTable({
-    data: data?.transactions || [],
-    itemsPerPage: 5, 
-    initialSort: { key: 'date', direction: 'desc' },
-    filterFn
-  });
 
   if (dataLoading && !data) {
     return <LoadingSpinner message={t('common.loading')} />;
@@ -137,35 +103,7 @@ export default function InputPage() {
             />
         </div>
 
-        {/* Transaction History Table Wrapper */}
-        <div className="w-full">
-           <TransactionHistoryTable 
-              searchQuery={searchQuery}
-              setSearchQuery={setSearchQuery}
-              tableData={tableData}
-              sortConfig={sortConfig}
-              handleSort={handleSort}
-              productOptions={productOptions}
-              handleEdit={handleEdit}
-              confirmDelete={confirmDelete}
-              currentPage={currentPage}
-              totalPages={totalPages}
-              goToPage={goToPage}
-              itemsPerPage={itemsPerPage}
-              setItemsPerPage={setItemsPerPage}
-              totalItems={totalItems}
-            />
-        </div>
-
       </div>
-
-      <DeleteTransactionModal 
-        isOpen={isDeleteModalOpen}
-        onClose={() => setIsDeleteModalOpen(false)}
-        onConfirm={handleDelete}
-        loading={loading}
-        transaction={transactionToDelete}
-      />
     </div>
   );
 }
