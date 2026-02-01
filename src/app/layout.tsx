@@ -14,6 +14,10 @@ export const metadata: Metadata = {
   description: "Claymorphism Dashboard for Bakery",
   applicationName: "BakeTrack",
   manifest: "/manifest.json",
+  icons: {
+    icon: "/logo.png",
+    apple: "/logo.png",
+  },
   appleWebApp: {
     capable: true,
     title: "BakeTrack",
