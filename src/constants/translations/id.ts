@@ -137,6 +137,9 @@ export const translationsID: Record<string, string> = {
   'login.error_auth': 'Email atau password salah. Silakan coba lagi.',
   'login.error_network': 'Terjadi kesalahan. Cek koneksi internet Anda.',
   'login.forgot_pass': 'Lupa password? Hubungi Administrator Spreadsheet.',
+  'login.first_time': 'Baru pertama kali?',
+  'login.setup_desc': 'Belum setup database kamu?',
+  'login.btn_setup': 'Setup Database Sekarang',
   // Loading States
   'product.loading': 'Memuat Produk...',
   'settings.loading': 'Memuat Pengaturan...',

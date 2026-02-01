@@ -71,6 +71,10 @@ Build a "Claymorphism" style bakery dashboard that matches specific design refer
 - Static user profile view.
 - Connection status indicator (pinging the Google Sheet API).
 
+#### [Login Page]
+
+- **Setup CTA**: Add a clear "First time setup" section below the login form to guide new users to the database configuration wizard.
+
 ## Verification Plan
 
 ### Manual Verification

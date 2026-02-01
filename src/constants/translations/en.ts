@@ -137,6 +137,9 @@ export const translationsEN: Record<string, string> = {
   'login.error_auth': 'Invalid email or password. Please try again.',
   'login.error_network': 'An error occurred. Check your internet connection.',
   'login.forgot_pass': 'Forgot password? Contact Spreadsheet Administrator.',
+  'login.first_time': 'First time here?',
+  'login.setup_desc': 'Haven\'t set up your database yet?',
+  'login.btn_setup': 'Setup Database Now',
   // Loading States
   'product.loading': 'Loading Products...',
   'settings.loading': 'Loading Settings...',

@@ -137,15 +137,31 @@ export default function LoginPage() {
                     </motion.button>
                 </form>
 
-                <div className="mt-8 text-center space-y-4">
-                    <p className="text-gray-400 text-sm">
+                <div className="mt-8 text-center space-y-6">
+                    <p className="text-gray-400 text-sm hover:text-pink-500 cursor-pointer transition-colors">
                         {t('login.forgot_pass')}
                     </p>
-                    
-                    <a href="/setup?step=3" className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-pink-500 transition-colors">
-                        <User size={14} className="opacity-0" /> {/* Spacer */}
-                        ⚙️ {language === 'EN' ? 'Configure Database' : 'Konfigurasi Database'}
-                    </a>
+
+                    <div className="pt-6 border-t border-gray-100">
+                        <p className="text-gray-400 text-xs font-medium uppercase tracking-wider mb-4">
+                            {t('login.first_time')}
+                        </p>
+                        
+                        <div className="bg-gradient-to-br from-pink-50 to-white rounded-2xl p-5 text-center border border-pink-100 shadow-sm relative overflow-hidden group">
+                            <div className="absolute top-0 right-0 w-20 h-20 bg-pink-200/20 rounded-full -mr-10 -mt-10 blur-xl group-hover:bg-pink-300/30 transition-all"></div>
+                            
+                            <p className="text-sm text-gray-600 mb-4 font-medium relative z-10">
+                                {t('login.setup_desc')}
+                            </p>
+                            
+                            <a 
+                                href="/setup" 
+                                className="w-full inline-flex items-center justify-center gap-2 bg-white text-pink-600 font-bold py-3 rounded-xl shadow-sm border border-pink-200 hover:bg-pink-600 hover:text-white hover:border-pink-600 transition-all transform hover:scale-[1.02] active:scale-[0.98] relative z-10"
+                            >
+                                🚀 {t('login.btn_setup')}
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
